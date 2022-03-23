@@ -1,0 +1,8 @@
+{
+    "database": {
+      "url": "://postgres:postgres@localhost:5432/dev-to-db"
+    },
+    "server": {
+      "port": "3000"
+    }
+  }
