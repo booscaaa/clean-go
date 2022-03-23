@@ -1,6 +1,6 @@
 {
     "database": {
-      "url": "://postgres:postgres@localhost:5432/dev-to-db"
+      "url": "://postgres:postgres@localhost:5432/devtodb"
     },
     "server": {
       "port": "3000"

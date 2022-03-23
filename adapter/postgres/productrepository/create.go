@@ -7,7 +7,9 @@ import (
 	"github.com/boooscaaa/clean-go/core/dto"
 )
 
-func (repository repository) Create(productRequest *dto.CreateProductRequest) (*domain.Product, error) {
+func (repository repository) Create(
+	productRequest *dto.CreateProductRequest,
+) (*domain.Product, error) {
 	ctx := context.Background()
 	product := domain.Product{}
 

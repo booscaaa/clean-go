@@ -16,5 +16,13 @@ func (service service) Create(response http.ResponseWriter, request *http.Reques
 		return
 	}
 
-	json.NewEncoder(response).Encode(productRequest)
+	product, err := service.usecase.Create(productRequest)
+
+	if err != nil {
+		response.WriteHeader(500)
+		response.Write([]byte(err.Error()))
+		return
+	}
+
+	json.NewEncoder(response).Encode(product)
 }
