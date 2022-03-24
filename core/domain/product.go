@@ -23,11 +23,11 @@ type ProductService interface {
 // ProductUseCase is a contract of business rule layer
 type ProductUseCase interface {
 	Create(productRequest *dto.CreateProductRequest) (*Product, error)
-	Fetch(paginationRequest *dto.PaginationRequestParms) (*Pagination[[]Product], error)
+	Fetch(paginationRequest *dto.PaginationRequestParms) (*Pagination, error)
 }
 
 // ProductRepository is a contract of database connection adapter layer
 type ProductRepository interface {
 	Create(productRequest *dto.CreateProductRequest) (*Product, error)
-	Fetch(paginationRequest *dto.PaginationRequestParms) (*Pagination[[]Product], error)
+	Fetch(paginationRequest *dto.PaginationRequestParms) (*Pagination, error)
 }
