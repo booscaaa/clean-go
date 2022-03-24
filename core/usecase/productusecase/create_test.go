@@ -24,8 +24,8 @@ func TestCreate(t *testing.T) {
 	mockProductRepository := mocks.NewMockProductRepository(mockCtrl)
 	mockProductRepository.EXPECT().Create(&fakeRequestProduct).Return(&fakeDBProduct, nil)
 
-	productUseCase := productusecase.New(mockProductRepository)
-	product, err := productUseCase.Create(&fakeRequestProduct)
+	sut := productusecase.New(mockProductRepository)
+	product, err := sut.Create(&fakeRequestProduct)
 
 	require.Nil(t, err)
 	require.NotEmpty(t, product.ID)
@@ -43,8 +43,8 @@ func TestCreate_Error(t *testing.T) {
 	mockProductRepository := mocks.NewMockProductRepository(mockCtrl)
 	mockProductRepository.EXPECT().Create(&fakeRequestProduct).Return(nil, fmt.Errorf("ANY ERROR"))
 
-	productUseCase := productusecase.New(mockProductRepository)
-	product, err := productUseCase.Create(&fakeRequestProduct)
+	sut := productusecase.New(mockProductRepository)
+	product, err := sut.Create(&fakeRequestProduct)
 
 	require.NotNil(t, err)
 	require.Nil(t, product)

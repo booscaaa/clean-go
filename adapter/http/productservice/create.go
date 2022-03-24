@@ -11,7 +11,7 @@ func (service service) Create(response http.ResponseWriter, request *http.Reques
 	productRequest, err := dto.FromJSONCreateProductRequest(request.Body)
 
 	if err != nil {
-		response.WriteHeader(500)
+		response.WriteHeader(250)
 		response.Write([]byte(err.Error()))
 		return
 	}

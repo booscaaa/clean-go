@@ -39,8 +39,8 @@ func TestCreate(t *testing.T) {
 		fakeProductDBResponse.Description,
 	))
 
-	productRepository := productrepository.New(mock)
-	product, err := productRepository.Create(&fakeProductRequest)
+	sut := productrepository.New(mock)
+	product, err := sut.Create(&fakeProductRequest)
 
 	if err := mock.ExpectationsWereMet(); err != nil {
 		t.Errorf("there were unfulfilled expectations: %s", err)
@@ -63,8 +63,8 @@ func TestCreate_DBError(t *testing.T) {
 		fakeProductRequest.Description,
 	).WillReturnError(fmt.Errorf("ANY DATABASE ERROR"))
 
-	productRepository := productrepository.New(mock)
-	product, err := productRepository.Create(&fakeProductRequest)
+	sut := productrepository.New(mock)
+	product, err := sut.Create(&fakeProductRequest)
 
 	if err := mock.ExpectationsWereMet(); err != nil {
 		t.Errorf("there were unfulfilled expectations: %s", err)

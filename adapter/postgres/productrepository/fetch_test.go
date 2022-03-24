@@ -44,8 +44,8 @@ func TestFetch(t *testing.T) {
 	mock.ExpectQuery("SELECT COUNT(.+) FROM product").
 		WillReturnRows(pgxmock.NewRows([]string{"count"}).AddRow(int32(1)))
 
-	productRepository := productrepository.New(mock)
-	products, err := productRepository.Fetch(&fakePaginationRequestParams)
+	sut := productrepository.New(mock)
+	products, err := sut.Fetch(&fakePaginationRequestParams)
 
 	require.Nil(t, err)
 
@@ -69,8 +69,8 @@ func TestFetch_QueryError(t *testing.T) {
 	mock.ExpectQuery("SELECT (.+) FROM product").
 		WillReturnError(fmt.Errorf("ANY QUERY ERROR"))
 
-	productRepository := productrepository.New(mock)
-	products, err := productRepository.Fetch(&fakePaginationRequestParams)
+	sut := productrepository.New(mock)
+	products, err := sut.Fetch(&fakePaginationRequestParams)
 
 	require.NotNil(t, err)
 
@@ -96,8 +96,8 @@ func TestFetch_QueryCountError(t *testing.T) {
 	mock.ExpectQuery("SELECT COUNT(.+) FROM product").
 		WillReturnError(fmt.Errorf("ANY QUERY COUNT ERROR"))
 
-	productRepository := productrepository.New(mock)
-	products, err := productRepository.Fetch(&fakePaginationRequestParams)
+	sut := productrepository.New(mock)
+	products, err := sut.Fetch(&fakePaginationRequestParams)
 
 	require.NotNil(t, err)
 

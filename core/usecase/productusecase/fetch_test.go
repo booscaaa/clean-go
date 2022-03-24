@@ -33,8 +33,8 @@ func TestFetch(t *testing.T) {
 		Total: 1,
 	}, nil)
 
-	productUseCase := productusecase.New(mockProductRepository)
-	products, err := productUseCase.Fetch(&fakePaginationRequestParams)
+	sut := productusecase.New(mockProductRepository)
+	products, err := sut.Fetch(&fakePaginationRequestParams)
 
 	require.Nil(t, err)
 
@@ -61,8 +61,8 @@ func TestFetch_Error(t *testing.T) {
 	mockProductRepository := mocks.NewMockProductRepository(mockCtrl)
 	mockProductRepository.EXPECT().Fetch(&fakePaginationRequestParams).Return(nil, fmt.Errorf("ANY ERROR"))
 
-	productUseCase := productusecase.New(mockProductRepository)
-	product, err := productUseCase.Fetch(&fakePaginationRequestParams)
+	sut := productusecase.New(mockProductRepository)
+	product, err := sut.Fetch(&fakePaginationRequestParams)
 
 	require.NotNil(t, err)
 	require.Nil(t, product)

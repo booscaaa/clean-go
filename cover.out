@@ -1,15 +1,24 @@
 mode: set
+github.com/boooscaaa/clean-go/adapter/http/productservice/create.go:10.84,13.16 2 1
+github.com/boooscaaa/clean-go/adapter/http/productservice/create.go:19.2,21.16 2 1
+github.com/boooscaaa/clean-go/adapter/http/productservice/create.go:27.2,27.43 1 1
+github.com/boooscaaa/clean-go/adapter/http/productservice/create.go:13.16,17.3 3 1
+github.com/boooscaaa/clean-go/adapter/http/productservice/create.go:21.16,25.3 3 1
+github.com/boooscaaa/clean-go/adapter/http/productservice/fetch.go:10.83,15.16 3 1
+github.com/boooscaaa/clean-go/adapter/http/productservice/fetch.go:21.2,21.44 1 1
+github.com/boooscaaa/clean-go/adapter/http/productservice/fetch.go:15.16,19.3 3 1
+github.com/boooscaaa/clean-go/adapter/http/productservice/new.go:10.63,14.2 1 1
+github.com/boooscaaa/clean-go/core/dto/pagination.go:19.95,32.2 4 1
 github.com/boooscaaa/clean-go/core/dto/product.go:16.82,18.76 2 1
 github.com/boooscaaa/clean-go/core/dto/product.go:22.2,22.35 1 1
 github.com/boooscaaa/clean-go/core/dto/product.go:18.76,20.3 1 1
-github.com/boooscaaa/clean-go/core/dto/pagination.go:19.95,32.2 4 1
-github.com/boooscaaa/clean-go/core/usecase/productusecase/new.go:10.69,14.2 1 1
 github.com/boooscaaa/clean-go/core/usecase/productusecase/create.go:8.98,11.16 2 1
 github.com/boooscaaa/clean-go/core/usecase/productusecase/create.go:15.2,15.21 1 1
 github.com/boooscaaa/clean-go/core/usecase/productusecase/create.go:11.16,13.3 1 1
 github.com/boooscaaa/clean-go/core/usecase/productusecase/fetch.go:8.105,11.16 2 1
 github.com/boooscaaa/clean-go/core/usecase/productusecase/fetch.go:15.2,15.22 1 1
 github.com/boooscaaa/clean-go/core/usecase/productusecase/fetch.go:11.16,13.3 1 1
+github.com/boooscaaa/clean-go/core/usecase/productusecase/new.go:10.69,14.2 1 1
 github.com/boooscaaa/clean-go/adapter/postgres/productrepository/create.go:12.28,29.16 4 1
 github.com/boooscaaa/clean-go/adapter/postgres/productrepository/create.go:33.2,33.22 1 1
 github.com/boooscaaa/clean-go/adapter/postgres/productrepository/create.go:29.16,31.3 1 1

@@ -3,7 +3,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<title>productrepository: Go Coverage Report</title>
+		<title>productservice: Go Coverage Report</title>
 		<style>
 			body {
 				background: black;
@@ -55,21 +55,27 @@
 			<div id="nav">
 				<select id="files">
 				
-				<option value="file0">github.com/boooscaaa/clean-go/adapter/postgres/productrepository/create.go (100.0%)</option>
+				<option value="file0">github.com/boooscaaa/clean-go/adapter/http/productservice/create.go (100.0%)</option>
 				
-				<option value="file1">github.com/boooscaaa/clean-go/adapter/postgres/productrepository/fetch.go (100.0%)</option>
+				<option value="file1">github.com/boooscaaa/clean-go/adapter/http/productservice/fetch.go (100.0%)</option>
 				
-				<option value="file2">github.com/boooscaaa/clean-go/adapter/postgres/productrepository/new.go (100.0%)</option>
+				<option value="file2">github.com/boooscaaa/clean-go/adapter/http/productservice/new.go (100.0%)</option>
 				
-				<option value="file3">github.com/boooscaaa/clean-go/core/dto/pagination.go (100.0%)</option>
+				<option value="file3">github.com/boooscaaa/clean-go/adapter/postgres/productrepository/create.go (100.0%)</option>
 				
-				<option value="file4">github.com/boooscaaa/clean-go/core/dto/product.go (100.0%)</option>
+				<option value="file4">github.com/boooscaaa/clean-go/adapter/postgres/productrepository/fetch.go (100.0%)</option>
 				
-				<option value="file5">github.com/boooscaaa/clean-go/core/usecase/productusecase/create.go (100.0%)</option>
+				<option value="file5">github.com/boooscaaa/clean-go/adapter/postgres/productrepository/new.go (100.0%)</option>
 				
-				<option value="file6">github.com/boooscaaa/clean-go/core/usecase/productusecase/fetch.go (100.0%)</option>
+				<option value="file6">github.com/boooscaaa/clean-go/core/dto/pagination.go (100.0%)</option>
 				
-				<option value="file7">github.com/boooscaaa/clean-go/core/usecase/productusecase/new.go (100.0%)</option>
+				<option value="file7">github.com/boooscaaa/clean-go/core/dto/product.go (100.0%)</option>
+				
+				<option value="file8">github.com/boooscaaa/clean-go/core/usecase/productusecase/create.go (100.0%)</option>
+				
+				<option value="file9">github.com/boooscaaa/clean-go/core/usecase/productusecase/fetch.go (100.0%)</option>
+				
+				<option value="file10">github.com/boooscaaa/clean-go/core/usecase/productusecase/new.go (100.0%)</option>
 				
 				</select>
 			</div>
@@ -83,7 +89,77 @@
 		</div>
 		<div id="content">
 		
-		<pre class="file" id="file0" style="display: none">package productrepository
+		<pre class="file" id="file0" style="display: none">package productservice
+
+import (
+        "encoding/json"
+        "net/http"
+
+        "github.com/boooscaaa/clean-go/core/dto"
+)
+
+func (service service) Create(response http.ResponseWriter, request *http.Request) <span class="cov8" title="1">{
+        productRequest, err := dto.FromJSONCreateProductRequest(request.Body)
+
+        if err != nil </span><span class="cov8" title="1">{
+                response.WriteHeader(250)
+                response.Write([]byte(err.Error()))
+                return
+        }</span>
+
+        <span class="cov8" title="1">product, err := service.usecase.Create(productRequest)
+
+        if err != nil </span><span class="cov8" title="1">{
+                response.WriteHeader(500)
+                response.Write([]byte(err.Error()))
+                return
+        }</span>
+
+        <span class="cov8" title="1">json.NewEncoder(response).Encode(product)</span>
+}
+</pre>
+		
+		<pre class="file" id="file1" style="display: none">package productservice
+
+import (
+        "encoding/json"
+        "net/http"
+
+        "github.com/boooscaaa/clean-go/core/dto"
+)
+
+func (service service) Fetch(response http.ResponseWriter, request *http.Request) <span class="cov8" title="1">{
+        paginationRequest, _ := dto.FromValuePaginationRequestParams(request)
+
+        products, err := service.usecase.Fetch(paginationRequest)
+
+        if err != nil </span><span class="cov8" title="1">{
+                response.WriteHeader(500)
+                response.Write([]byte(err.Error()))
+                return
+        }</span>
+
+        <span class="cov8" title="1">json.NewEncoder(response).Encode(products)</span>
+}
+</pre>
+		
+		<pre class="file" id="file2" style="display: none">package productservice
+
+import "github.com/boooscaaa/clean-go/core/domain"
+
+type service struct {
+        usecase domain.ProductUseCase
+}
+
+// New returns contract implementation of ProductService
+func New(usecase domain.ProductUseCase) domain.ProductService <span class="cov8" title="1">{
+        return &amp;service{
+                usecase: usecase,
+        }
+}</span>
+</pre>
+		
+		<pre class="file" id="file3" style="display: none">package productrepository
 
 import (
         "context"
@@ -119,7 +195,7 @@ func (repository repository) Create(
 }
 </pre>
 		
-		<pre class="file" id="file1" style="display: none">package productrepository
+		<pre class="file" id="file4" style="display: none">package productrepository
 
 import (
         "context"
@@ -181,7 +257,7 @@ func (repository repository) Fetch(pagination *dto.PaginationRequestParms) (*dom
 }
 </pre>
 		
-		<pre class="file" id="file2" style="display: none">package productrepository
+		<pre class="file" id="file5" style="display: none">package productrepository
 
 import (
         "github.com/boooscaaa/clean-go/adapter/postgres"
@@ -200,7 +276,7 @@ func New(db postgres.PoolInterface) domain.ProductRepository <span class="cov8" 
 }</span>
 </pre>
 		
-		<pre class="file" id="file3" style="display: none">package dto
+		<pre class="file" id="file6" style="display: none">package dto
 
 import (
         "net/http"
@@ -234,7 +310,7 @@ func FromValuePaginationRequestParams(request *http.Request) (*PaginationRequest
 }</span>
 </pre>
 		
-		<pre class="file" id="file4" style="display: none">package dto
+		<pre class="file" id="file7" style="display: none">package dto
 
 import (
         "encoding/json"
@@ -259,7 +335,7 @@ func FromJSONCreateProductRequest(body io.Reader) (*CreateProductRequest, error)
 }
 </pre>
 		
-		<pre class="file" id="file5" style="display: none">package productusecase
+		<pre class="file" id="file8" style="display: none">package productusecase
 
 import (
         "github.com/boooscaaa/clean-go/core/domain"
@@ -277,7 +353,7 @@ func (usecase usecase) Create(productRequest *dto.CreateProductRequest) (*domain
 }
 </pre>
 		
-		<pre class="file" id="file6" style="display: none">package productusecase
+		<pre class="file" id="file9" style="display: none">package productusecase
 
 import (
         "github.com/boooscaaa/clean-go/core/domain"
@@ -295,7 +371,7 @@ func (usecase usecase) Fetch(paginationRequest *dto.PaginationRequestParms) (*do
 }
 </pre>
 		
-		<pre class="file" id="file7" style="display: none">package productusecase
+		<pre class="file" id="file10" style="display: none">package productusecase
 
 import "github.com/boooscaaa/clean-go/core/domain"
 
