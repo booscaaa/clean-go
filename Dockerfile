@@ -11,6 +11,7 @@ RUN CGO_ENABLED=0 go build -o goapp adapter/http/main.go
 RUN mv goapp ./deploy/goapp
 RUN mv adapter/http/docs ./deploy/docs
 RUN mv config.json ./deploy/config.json
+RUN mv database ./deploy/database
 
 
 FROM alpine:3.7 AS production
