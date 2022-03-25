@@ -1,0 +1,32 @@
+name: Deploy to heroku app
+
+on:
+  create:
+    tags:
+      - v*
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Config file access
+        run: |
+          rm -rf config.json
+          touch config.json 
+          json='{"database": {"url": "://$DB_USER:$DB_PASS@$DB_HOST:$DB_PORT/$DB_NAME"},"server": {"port": ""}}'
+          echo "$json" > config.json
+          sed -i -e 's/$DB_PORT/'${{ secrets.DB_PORT }}'/g' config.json
+          sed -i -e 's/$DB_USER/'${{ secrets.DB_USER }}'/g' config.json
+          sed -i -e 's/$DB_PASS/'${{ secrets.DB_PASS }}'/g' config.json
+          sed -i -e 's/$DB_NAME/'${{ secrets.DB_NAME }}'/g' config.json
+          sed -i -e 's/$DB_HOST/'${{ secrets.DB_HOST }}'/g' config.json
+          cat config.json
+
+      - uses: akhileshns/heroku-deploy@v3.10.9
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "clean-go"
+          heroku_email: "boscardinvinicius@gmail.com"
+          usedocker: true

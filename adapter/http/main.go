@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/boooscaaa/clean-go/adapter/postgres"
 	"github.com/boooscaaa/clean-go/di"
@@ -50,6 +51,10 @@ func main() {
 	).Methods("GET")
 
 	port := viper.GetString("server.port")
+
+	if port == "" {
+		port = os.Getenv("PORT")
+	}
 	log.Printf("LISTEN ON PORT: %v", port)
 	http.ListenAndServe(fmt.Sprintf(":%v", port), router)
 }
