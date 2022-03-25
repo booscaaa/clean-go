@@ -1,0 +1,100 @@
+basePath: /
+definitions:
+  domain.Pagination:
+    properties:
+      items: {}
+      total:
+        type: integer
+    type: object
+  domain.Product:
+    properties:
+      description:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      price:
+        type: number
+    type: object
+  dto.CreateProductRequest:
+    properties:
+      description:
+        type: string
+      name:
+        type: string
+      price:
+        type: number
+    type: object
+host: localhost:port
+info:
+  contact:
+    name: Vinícius Boscardin
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  title: Clean GO API Docs
+  version: 1.0.0
+paths:
+  /product:
+    get:
+      consumes:
+      - application/json
+      description: Fetch products with server pagination
+      parameters:
+      - description: 1,2
+        in: query
+        name: sort
+        required: true
+        type: string
+      - description: true,false
+        in: query
+        name: descending
+        required: true
+        type: string
+      - description: "1"
+        in: query
+        name: page
+        required: true
+        type: integer
+      - description: "10"
+        in: query
+        name: itemsPerPage
+        required: true
+        type: integer
+      - description: product name or any column
+        in: query
+        name: search
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.Pagination'
+      summary: Fetch products with server pagination
+      tags:
+      - product
+    post:
+      consumes:
+      - application/json
+      description: Create new product
+      parameters:
+      - description: product
+        in: body
+        name: product
+        required: true
+        schema:
+          $ref: '#/definitions/dto.CreateProductRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.Product'
+      summary: Create new product
+      tags:
+      - product
+swagger: "2.0"

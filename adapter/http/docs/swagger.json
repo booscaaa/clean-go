@@ -1,0 +1,151 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Clean GO API Docs",
+        "contact": {
+            "name": "Vinícius Boscardin"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    },
+    "host": "localhost:port",
+    "basePath": "/",
+    "paths": {
+        "/product": {
+            "get": {
+                "description": "Fetch products with server pagination",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "product"
+                ],
+                "summary": "Fetch products with server pagination",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "1,2",
+                        "name": "sort",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "true,false",
+                        "name": "descending",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "1",
+                        "name": "page",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "10",
+                        "name": "itemsPerPage",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "product name or any column",
+                        "name": "search",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/domain.Pagination"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Create new product",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "product"
+                ],
+                "summary": "Create new product",
+                "parameters": [
+                    {
+                        "description": "product",
+                        "name": "product",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.CreateProductRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/domain.Product"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "domain.Pagination": {
+            "type": "object",
+            "properties": {
+                "items": {},
+                "total": {
+                    "type": "integer"
+                }
+            }
+        },
+        "domain.Product": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "number"
+                }
+            }
+        },
+        "dto.CreateProductRequest": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "number"
+                }
+            }
+        }
+    }
+}
