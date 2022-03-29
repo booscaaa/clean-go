@@ -14,6 +14,7 @@ import (
 	httpSwagger "github.com/swaggo/http-swagger"
 
 	_ "github.com/boooscaaa/clean-go/adapter/http/docs"
+	"github.com/boooscaaa/clean-go/adapter/http/middleware"
 )
 
 func init() {
@@ -41,8 +42,12 @@ func main() {
 
 	router := mux.NewRouter()
 	router.PathPrefix("/swagger/").Handler(httpSwagger.WrapHandler)
-	router.Handle("/product", http.HandlerFunc(productService.Create)).Methods("POST")
-	router.Handle("/product", http.HandlerFunc(productService.Fetch)).Queries(
+
+	jsonApiRouter := router.PathPrefix("/").Subrouter()
+	jsonApiRouter.Use(middleware.Cors)
+
+	jsonApiRouter.Handle("/product", http.HandlerFunc(productService.Create)).Methods("POST")
+	jsonApiRouter.Handle("/product", http.HandlerFunc(productService.Fetch)).Queries(
 		"page", "{page}",
 		"itemsPerPage", "{itemsPerPage}",
 		"descending", "{descending}",
