@@ -17,7 +17,7 @@ jobs:
     - name: Download swaggo
       run: go install github.com/swaggo/swag/cmd/swag@latest
     - name: Install swaggo
-      run: swag init -d adapter/http --parseDependency --parseInternal --parseDepth 2 -o adapter/http/docs
+      run: swag init -d adapter/http --parseDependency --parseInternal --parseDepth 3 -o adapter/http/rest/docs
     - name: Test
       run: go mod tidy && go test ./... -coverprofile=coverage.txt -covermode=atomic
 
