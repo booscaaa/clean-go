@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/boooscaaa/clean-go/core/dto"
+	"github.com/graphql-go/graphql"
 )
 
 // Product is entity of table product database column
@@ -12,6 +13,10 @@ type Product struct {
 	Name        string  `json:"name"`
 	Price       float32 `json:"price"`
 	Description string  `json:"description"`
+}
+
+type PoductGraphQLService interface {
+	Fetch(params graphql.ResolveParams) (interface{}, error)
 }
 
 // ProductService is a contract of http adapter layer

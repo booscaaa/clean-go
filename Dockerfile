@@ -5,7 +5,7 @@ WORKDIR /go/api
 RUN go install github.com/swaggo/swag/cmd/swag@latest
 RUN rm -rf deploy
 RUN mkdir deploy
-RUN swag init -d adapter/http --parseDependency --parseInternal --parseDepth 2 -o adapter/http/docs
+RUN swag init -d adapter/http --parseDependency --parseInternal --parseDepth 3 -o adapter/http/rest/docs
 RUN go mod tidy
 RUN CGO_ENABLED=0 go build -o goapp adapter/http/main.go
 RUN mv goapp ./deploy/goapp

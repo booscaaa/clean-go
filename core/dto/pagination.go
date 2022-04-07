@@ -4,6 +4,8 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
+
+	"github.com/graphql-go/graphql"
 )
 
 // PaginationRequestParms is an representation query string params to filter and paginate products
@@ -24,6 +26,22 @@ func FromValuePaginationRequestParams(request *http.Request) (*PaginationRequest
 		Search:       request.FormValue("search"),
 		Descending:   strings.Split(request.FormValue("descending"), ","),
 		Sort:         strings.Split(request.FormValue("sort"), ","),
+		Page:         page,
+		ItemsPerPage: itemsPerPage,
+	}
+
+	return &paginationRequestParms, nil
+}
+
+// FromValuePaginationRequestParams converts query string params to a PaginationRequestParms struct
+func FromValuePaginationGraphRequestParams(params graphql.ResolveParams) (*PaginationRequestParms, error) {
+	page := params.Args["page"].(int)
+	itemsPerPage := params.Args["itemsPerPage"].(int)
+
+	paginationRequestParms := PaginationRequestParms{
+		Search:       params.Args["search"].(string),
+		Descending:   strings.Split(params.Args["descending"].(string), ","),
+		Sort:         strings.Split(params.Args["sort"].(string), ","),
 		Page:         page,
 		ItemsPerPage: itemsPerPage,
 	}

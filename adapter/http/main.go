@@ -2,19 +2,21 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
 	"os"
 
+	"github.com/boooscaaa/clean-go/adapter/http/graphql/schema"
 	"github.com/boooscaaa/clean-go/adapter/postgres"
 	"github.com/boooscaaa/clean-go/di"
 	"github.com/gorilla/mux"
 	"github.com/spf13/viper"
 	httpSwagger "github.com/swaggo/http-swagger"
 
-	_ "github.com/boooscaaa/clean-go/adapter/http/docs"
-	"github.com/boooscaaa/clean-go/adapter/http/middleware"
+	_ "github.com/boooscaaa/clean-go/adapter/http/rest/docs"
+	"github.com/boooscaaa/clean-go/adapter/http/rest/middleware"
 )
 
 func init() {
@@ -39,8 +41,10 @@ func main() {
 
 	postgres.RunMigrations()
 	productService := di.ConfigProductDI(conn)
+	productGraphQLService := di.ConfigProductGraphQLDI(conn)
 
 	router := mux.NewRouter()
+	graphQLRouter := schema.Config(productGraphQLService)
 	router.PathPrefix("/swagger/").Handler(httpSwagger.WrapHandler)
 
 	jsonApiRouter := router.PathPrefix("/").Subrouter()
@@ -54,6 +58,11 @@ func main() {
 		"sort", "{sort}",
 		"search", "{search}",
 	).Methods("GET")
+
+	router.HandleFunc("/graphql", func(w http.ResponseWriter, r *http.Request) {
+		result := schema.ExecuteQuery(r.URL.Query().Get("query"), graphQLRouter)
+		json.NewEncoder(w).Encode(result)
+	})
 
 	port := viper.GetString("server.port")
 
