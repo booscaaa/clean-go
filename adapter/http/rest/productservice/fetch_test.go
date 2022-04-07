@@ -6,7 +6,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/boooscaaa/clean-go/adapter/http/productservice"
+	"github.com/boooscaaa/clean-go/adapter/http/rest/productservice"
 	"github.com/boooscaaa/clean-go/core/domain"
 	"github.com/boooscaaa/clean-go/core/domain/mocks"
 	"github.com/boooscaaa/clean-go/core/dto"
