@@ -50,14 +50,14 @@ func main() {
 	jsonApiRouter := router.PathPrefix("/").Subrouter()
 	jsonApiRouter.Use(middleware.Cors)
 
-	jsonApiRouter.Handle("/product", http.HandlerFunc(productService.Create)).Methods("POST")
+	jsonApiRouter.Handle("/product", http.HandlerFunc(productService.Create)).Methods("POST", "OPTIONS")
 	jsonApiRouter.Handle("/product", http.HandlerFunc(productService.Fetch)).Queries(
 		"page", "{page}",
 		"itemsPerPage", "{itemsPerPage}",
 		"descending", "{descending}",
 		"sort", "{sort}",
 		"search", "{search}",
-	).Methods("GET")
+	).Methods("GET", "OPTIONS")
 
 	router.HandleFunc("/graphql", func(w http.ResponseWriter, r *http.Request) {
 		result := schema.ExecuteQuery(r.URL.Query().Get("query"), graphQLRouter)
