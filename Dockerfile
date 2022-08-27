@@ -2,7 +2,7 @@ FROM golang:latest AS builder
 ADD . /go/api
 WORKDIR /go/api
 
-RUN go install github.com/swaggo/swag/cmd/swag@latest
+RUN go install github.com/swaggo/swag/cmd/swag@v1.8.4
 RUN rm -rf deploy
 RUN mkdir deploy
 RUN swag init -d adapter/http --parseDependency --parseInternal --parseDepth 3 -o adapter/http/rest/docs
