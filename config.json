@@ -1,6 +1,6 @@
 {
     "database": {
-      "url": "://postgres:postgres@localhost:5433/devtodb"
+      "url": "://postgres:4ba1b3aeb9fccc96e0c9f7e6d229f9a7a26b86578c9e3918@cleango-db.internal:5432?sslmode=disable"
     },
     "server": {
       "port": "3000"
