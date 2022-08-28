@@ -1,4 +1,4 @@
-name: Deploy to heroku app
+name: Deploy to fly.io app
 
 on:
   create:
@@ -27,4 +27,4 @@ jobs:
           cat config.json
 
       - uses: superfly/flyctl-actions/setup-flyctl@master
-      - run: flyctl deploy --remote-only
+      - run: flyctl deploy
