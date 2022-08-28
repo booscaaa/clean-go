@@ -27,4 +27,4 @@ jobs:
           cat config.json
 
       - uses: superfly/flyctl-actions/setup-flyctl@master
-      - run: flyctl deploy
+      - run: flyctl deploy --remote-only --detach  
